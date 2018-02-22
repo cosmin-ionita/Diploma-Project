@@ -1,6 +1,11 @@
 # Diploma-Project
 This repository contains my Bachelor's CS degree project as well as it's timeline and incremental progress.
 
+## Features and architecture
+
+* [Features](Images/Specifications.png)
+* [Architecture]()
+
 ## Overall progress
 
 ### Week 1 (19.02.2018 -> 23.02.2018)
