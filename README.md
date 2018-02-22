@@ -4,7 +4,7 @@ This repository contains my Bachelor's CS degree project as well as it's timelin
 ## Features and architecture
 
 * [Features](Images/Specifications.png)
-* [Architecture]()
+* [Architecture](Images/Architecture.png)
 
 ## Overall progress
 
