@@ -27,4 +27,5 @@ and a updating index (batch mode vs near real-time mode).
 
 
 [1] https://hortonworks.com/hadoop-tutorial/searching-data-solr/
+
 [2] https://github.com/lucidworks/hadoop-solr
