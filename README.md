@@ -19,6 +19,7 @@ This repository contains my Bachelor's CS degree project as well as it's timelin
 
 ### Week 2 (26.02.2018 -> 02.03.2018)
 
-* Test Solr with plaintext data to see if it inferes the schema correctly
+* :ballot_box_with_check: Discuss with Ciprian D. (coordinator professor) to get approval on project architecture and features (last week progress)
+* :ballot_box_with_check: Test Solr in manual configuration to understand the flow (results presented [here](Documentation/Solr/SolrSummary.md))
 * Research on different types of logs and think about a unique, structured data transfer object
 * [TBD]
