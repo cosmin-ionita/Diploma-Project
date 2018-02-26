@@ -10,12 +10,12 @@ This repository contains my Bachelor's CS degree project as well as it's timelin
 
 ### Week 1 (19.02.2018 -> 23.02.2018)
 
-* Define a specific set of use cases detailed in Images/Specifications.png file as a result of the discussion with Flavian, Cosmin R. and Dan T. :ballot_box_with_check:
-* Research on the appropriate technologies (Apache Flume, Hadoop, Solr) :ballot_box_with_check:
-* Create the project pre-architecture and establish it :ballot_box_with_check:
-* Serious research on Apache Flume to see if it supports metadata extraction and different log formats :ballot_box_with_check:
-* Create a prototype Solr project using Docker and SolrJ :ballot_box_with_check:
-* Request access to AWS infrastructure :ballot_box_with_check:
+* :ballot_box_with_check: Define a specific set of use cases detailed in Images/Specifications.png file as a result of the discussion with Flavian, Cosmin R. and Dan T.
+* :ballot_box_with_check: Research on the appropriate technologies (Apache Flume, Hadoop, Solr)
+* :ballot_box_with_check: Create the project pre-architecture and establish it
+* :ballot_box_with_check: Serious research on Apache Flume to see if it supports metadata extraction and different log formats
+* :ballot_box_with_check: Create a prototype Solr project using Docker and SolrJ
+* :ballot_box_with_check: Request access to AWS infrastructure
 
 ### Week 2 (26.02.2018 -> 02.03.2018)
 
