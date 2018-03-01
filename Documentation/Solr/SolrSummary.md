@@ -20,12 +20,13 @@ and a updating index (batch mode vs near real-time mode).
 * Solr can be instructed to store it's index in Hadoop but not to index automatically data that appeared in HDFS
 * We need to index files that have been added to HDFS (our usecase)
 * Apparently this behavior is not built-in in Solr. See [1] and [2]
-* We need to create a logic for this
+* We need to use the MapReduceIndexerTool that creates a Lucene Index stored in HDFS
+* MapReduceIndexerTool takes a morphline and outputs index shards
+* Cloudera has support for morphlines
 
 
 
 
 
 [1] https://hortonworks.com/hadoop-tutorial/searching-data-solr/
-
 [2] https://github.com/lucidworks/hadoop-solr
