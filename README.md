@@ -21,5 +21,7 @@ This repository contains my Bachelor's CS degree project as well as it's timelin
 
 * :ballot_box_with_check: Discuss with Ciprian D. (coordinator professor) to get approval on project architecture and features (last week progress)
 * :ballot_box_with_check: Test Solr in manual configuration to understand the flow (results presented [here](Documentation/Solr/SolrSummary.md))
-* Research on different types of logs and think about a unique, structured data transfer object
-* [TBD]
+* Research on different types of logs and think about a unique, structured data transfer object (waiting for Splunk access)
+* :ballot_box_with_check: Research on Solr Analyzers
+* :ballot_box_with_check: Get access to AWS
+* :ballot_box_with_check: Research on Morphlines and adapt the architecture to be aware of Morphlines
