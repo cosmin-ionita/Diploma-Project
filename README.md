@@ -13,7 +13,7 @@ This repository contains my Bachelor's CS degree project as well as it's timelin
 * :ballot_box_with_check: Define a specific set of use cases detailed in Images/Specifications.png file as a result of the discussion with Flavian, Cosmin R. and Dan T.
 * :ballot_box_with_check: Research on the appropriate technologies (Apache Flume, Hadoop, Solr)
 * :ballot_box_with_check: Create the project pre-architecture and establish it
-* :ballot_box_with_check: Serious research on Apache Flume to see if it supports metadata extraction and different log formats
+* :ballot_box_with_check: Research on Apache Flume to see if it supports metadata extraction and different log formats
 * :ballot_box_with_check: Create a prototype Solr project using Docker and SolrJ
 * :ballot_box_with_check: Request access to AWS infrastructure
 
@@ -25,3 +25,9 @@ This repository contains my Bachelor's CS degree project as well as it's timelin
 * :ballot_box_with_check: Research on Solr Analyzers
 * :ballot_box_with_check: Get access to AWS
 * :ballot_box_with_check: Research on Morphlines and adapt the architecture to be aware of Morphlines
+
+### Week 3 (5.03.2018 -> 9.03.2018)
+
+* Get access to PIM and create your own cluster
+* Create a basic infrastructure of 3 nodes - Flume, Hadoop and a producer
+* [TBD]
