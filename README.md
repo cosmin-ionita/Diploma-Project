@@ -35,6 +35,7 @@ This repository contains my Bachelor's CS degree project as well as it's timelin
 
 ### Week 4 (12.03.2018 -> 16.03.2018)
 
+* :ballot_box_with_check: Analyze all keystone logs to see their format
 * Create a jar that accumulates logs and compress them (simulates the real world scenario)
 * Research on a log parser (for log4j but not only)
 * Deploy the jars on the cluster
