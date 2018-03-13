@@ -1,7 +1,10 @@
 package Interfaces;
 
 import java.io.File;
+import java.util.List;
 
 public interface IDecompressable {
-    void decompress(File archive);
+
+    List<File> decompress(File archive);
+
 }

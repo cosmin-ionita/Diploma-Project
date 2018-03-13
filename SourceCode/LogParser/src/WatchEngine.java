@@ -28,7 +28,7 @@ public class WatchEngine {
         }
     }
 
-    public static void watchDirectoryPath(Path path) {
+    public static void watchDirectory(Path path) {
 
         assertFolderPath(path);
 
@@ -75,6 +75,7 @@ public class WatchEngine {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         File dir = new File(WatchEngine.target_directory);
-        watchDirectoryPath(dir.toPath());
+
+        watchDirectory(dir.toPath());
     }
 }

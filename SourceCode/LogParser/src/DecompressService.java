@@ -1,6 +1,7 @@
 import Decompressors.TarDecompressor;
 import Enums.ArchiveTypes;
 import Interfaces.IDecompressable;
+import javafx.scene.shape.Arc;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -16,18 +17,15 @@ public class DecompressService {
 
     public static List<File> decompressArchive(Path path) {
 
-        List<File> files = new ArrayList<File>();
+        List<File> files;
+        DecompressorFactory factory = new DecompressorFactory();
 
         String extension = getExtension(path.toString());
 
-        if(extension == ArchiveTypes.TAR.toString()) {
-            IDecompressable decompressor = new TarDecompressor();
+        IDecompressable decompressor = factory.getDecompressor(ArchiveTypes.valueOf(extension));
+        assert decompressor != null;
 
-            decompressor.decompress(path.toFile());
-        }
-        else if(extension == ArchiveTypes.ZIP.toString()) {
-
-        }
+        files = decompressor.decompress(path.toFile());
 
         return files;
     }

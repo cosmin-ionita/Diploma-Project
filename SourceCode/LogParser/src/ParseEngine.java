@@ -1,4 +1,6 @@
+import java.io.File;
 import java.nio.file.Path;
+import java.util.List;
 
 public class ParseEngine {
 
@@ -9,6 +11,11 @@ public class ParseEngine {
             @Override
             public void run() {
 
+                List<File> files = DecompressService.decompressArchive(path);
+
+                for(File file : files) {
+
+                }
             }
         });
 
