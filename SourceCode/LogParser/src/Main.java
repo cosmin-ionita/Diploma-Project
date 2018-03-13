@@ -32,20 +32,19 @@ public class Main {
 
         assertFolderPath(path);
 
+        WatchKey key = null;
+        Kind<?> kind = null;
+
         FileSystem fs = path.getFileSystem();
 
         try (WatchService service = fs.newWatchService()) {
 
             path.register(service, ENTRY_CREATE);
 
-            WatchKey key = null;
-
             while (true) {
 
                 /* This call blocks the control until an event occurs */
                 key = service.take();
-
-                Kind<?> kind = null;
 
                 /* Iterate over the events and process each one */
                 for (WatchEvent<?> watchEvent : key.pollEvents()) {
@@ -58,7 +57,7 @@ public class Main {
                     } else if (ENTRY_CREATE == kind) {
                         Path newPath = ((WatchEvent<Path>) watchEvent).context();
 
-                    
+
                     }
                 }
 
