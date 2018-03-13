@@ -12,7 +12,7 @@ import java.nio.file.WatchEvent.Kind;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 
-public class Main {
+public class WatchEngine {
 
     private static final String target_directory = "/Users/ioni/streaming_logs/";
 
@@ -51,13 +51,13 @@ public class Main {
 
                     kind = watchEvent.kind();
 
-                    if (OVERFLOW == kind) {
+                    if (OVERFLOW == kind) {      /* If the events are lost or discarded */
                         continue;
-
+                                                /* If a new file is added to the directory */
                     } else if (ENTRY_CREATE == kind) {
-                        Path newPath = ((WatchEvent<Path>) watchEvent).context();
+                        Path created_file = ((WatchEvent<Path>) watchEvent).context();
 
-
+                        ParseEngine.ParseArchive(created_file);
                     }
                 }
 
@@ -74,7 +74,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        File dir = new File(Main.target_directory);
+        File dir = new File(WatchEngine.target_directory);
         watchDirectoryPath(dir.toPath());
     }
 }
