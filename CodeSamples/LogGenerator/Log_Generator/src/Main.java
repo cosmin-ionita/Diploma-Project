@@ -18,7 +18,6 @@ public class Main {
     private static final String large_log_filename = "/Users/ioni/logs.txt";
     private static final String working_directory = "/Users/ioni/streaming_logs/";
 
-
     private static String getFileName(int no) {
         return Main.working_directory + "log_" + no + ".txt";
     }
@@ -60,13 +59,11 @@ public class Main {
         try {
 
             int count;
-
             byte data[] = new byte[2048];
 
             File[] files = new File[files_count];
 
             FileOutputStream destination_stream = new FileOutputStream(getArchiveName(archive_id));
-
             TarOutputStream output_stream = new TarOutputStream(new BufferedOutputStream(destination_stream));
 
             for(int i = 0; i < files_count; i++)
@@ -80,7 +77,6 @@ public class Main {
                 BufferedInputStream origin = new BufferedInputStream(new FileInputStream(file));
 
                 while((count = origin.read(data)) != -1) {
-
                     output_stream.write(data, 0, count);
                 }
 
@@ -103,7 +99,6 @@ public class Main {
      */
 
     private static void removeFiles() {
-
         File file;
 
         for(int i = 0; i < Main.files_per_archive; i++) {
@@ -116,9 +111,8 @@ public class Main {
 
     public static void main(String args[]) {
 
-        int file_no = 0, bytes_written = 0, archive_id = 0;
-
         String line, file_name;
+        int file_no = 0, bytes_written = 0, archive_id = 0;
 
         try {
 
@@ -128,7 +122,6 @@ public class Main {
             wr = updateWriter(file_no);
 
             while ((line = br.readLine()) != null) {
-
                 line += "\n";
 
                 wr.write(line);
@@ -136,11 +129,9 @@ public class Main {
                 bytes_written += line.length();
 
                 if(bytes_written >= Main.file_size) {             /* if the file has 2 MB in size */
-
                     bytes_written = 0;
 
                     if(file_no == Main.files_per_archive) {   /* if we generate a number of files, we archive them */
-
                         file_no = 0;
 
                         generateArchive(archive_id++, Main.files_per_archive);
