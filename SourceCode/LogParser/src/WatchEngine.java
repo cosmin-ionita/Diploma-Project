@@ -51,10 +51,10 @@ public class WatchEngine {
 
                     kind = watchEvent.kind();
 
-                    if (OVERFLOW == kind) {      /* If the events are lost or discarded */
+                    if (OVERFLOW == kind) {                     /* If the events are lost or discarded */
                         continue;
-                                                /* If a new file is added to the directory */
-                    } else if (ENTRY_CREATE == kind) {
+
+                    } else if (ENTRY_CREATE == kind) {          /* If a new file is added to the directory */
                         Path created_file = ((WatchEvent<Path>) watchEvent).context();
 
                         ParseEngine.ParseArchive(created_file);
@@ -65,10 +65,7 @@ public class WatchEngine {
                     break;
                 }
             }
-
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        } catch (InterruptedException exception) {
+        } catch (IOException | InterruptedException exception) {
             exception.printStackTrace();
         }
     }
