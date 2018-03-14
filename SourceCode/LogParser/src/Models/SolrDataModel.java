@@ -1,14 +1,13 @@
 package Models;
 
-import java.io.Serializable;
-
-public class SolrDataModel implements Serializable{
+public class SolrDataModel {
 
     private String date;
     private String time;
     private String logLevel;
     private String message;
     private String hostName;
+    private String jobId;
     private String sourceFileName;
 
     public void setDate(String date) {
@@ -29,6 +28,10 @@ public class SolrDataModel implements Serializable{
 
     public void setHostName(String hostName) {
         this.hostName = hostName;
+    }
+
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
     }
 
     public void setSourceFileName(String sourceFileName) {
@@ -53,6 +56,10 @@ public class SolrDataModel implements Serializable{
 
     public String getHostName() {
         return this.hostName;
+    }
+
+    public String getJobId() {
+        return this.jobId;
     }
 
     public String getSourceFileName() {
