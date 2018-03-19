@@ -7,7 +7,11 @@ import java.net.UnknownHostException;
 public class Utils {
 
     public static String getExtension(String fileName) {
-        return fileName.split(".")[1];
+        return fileName.substring(fileName.lastIndexOf(".") + 1).toUpperCase();
+    }
+
+    public static String getFileName(String fileName) {
+        return fileName.substring(0, fileName.lastIndexOf("."));
     }
 
     public static boolean checkModel(SolrDataModel model) {
