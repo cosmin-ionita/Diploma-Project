@@ -10,7 +10,7 @@ import Interfaces.IDecompressable;
 public class DecompressorFactory {
 
     /**
-     * This method simply takes an archive type and returns the appropriate decompressor object
+     * This method takes an archive type and returns the appropriate decompressor object
      *
      * @param archiveType - the type of the archive based on it's extension
      * @return - returns the specialized decompressor
