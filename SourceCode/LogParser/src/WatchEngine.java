@@ -4,17 +4,14 @@ import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileSystem;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.WatchEvent;
+import java.nio.file.*;
 import java.nio.file.WatchEvent.Kind;
-import java.nio.file.WatchKey;
-import java.nio.file.WatchService;
+
+import Utils.Utils;
 
 public class WatchEngine {
 
-    private static final String target_directory = "/Users/ioni/streaming_logs/";
+    private static String watchDirectory = "/Users/ioni/streaming_logs/work_dir";
 
     private static void assertFolderPath(Path path) {
         try {
@@ -43,27 +40,32 @@ public class WatchEngine {
 
             while (true) {
 
-                /* This call blocks the control until an event occurs */
+                Logger.out("Ready to watch on new archives...");
+
+                /* This call blocks the current thread until an event occurs */
                 key = service.take();
+
+                Logger.out("New file detected! Start processing the archive...");
 
                 /* Iterate over the events and process each one */
                 for (WatchEvent<?> watchEvent : key.pollEvents()) {
 
                     kind = watchEvent.kind();
 
-                    if (OVERFLOW == kind) {                     /* If the events are lost or discarded */
+                    if (kind == OVERFLOW)                     /* If the events are lost or discarded */
                         continue;
 
-                    } else if (ENTRY_CREATE == kind) {          /* If a new file is added to the directory */
-                        Path created_file = ((WatchEvent<Path>) watchEvent).context();
+                    else if (kind == ENTRY_CREATE) {          /* If a new file is added to the directory */
+                        Path created_entity = ((WatchEvent<Path>) watchEvent).context();
 
-                        ParseEngine.ParseArchive(created_file);
+                        if(Utils.isArchive(created_entity.toString())) {
+                            ParseEngine.ParseArchive(Paths.get(watchDirectory).resolve(created_entity));    /* We do this because of a bug in WatchService */
+                        }
                     }
                 }
 
-                if (!key.reset()) {
+                if (!key.reset())
                     break;
-                }
             }
         } catch (IOException | InterruptedException exception) {
             exception.printStackTrace();
@@ -71,7 +73,16 @@ public class WatchEngine {
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        File dir = new File(WatchEngine.target_directory);
+
+        while(args.length != 2 || !Utils.checkInput(args[0], args[1])) {
+            System.out.println("Usage: java -jar Diploma-Project.jar --watch-directory=/path/to/in/dir --destination-directory=/path/to/out/dir");
+            return;
+        }
+
+        WatchEngine.watchDirectory = args[0].split("=")[1];
+        DataRepository.setDestinationDirectory(args[1].split("=")[1]);
+
+        File dir = new File(WatchEngine.watchDirectory);
 
         watchDirectory(dir.toPath());
     }
