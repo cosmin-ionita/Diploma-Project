@@ -6,5 +6,4 @@ import java.util.List;
 public interface IDecompressable {
 
     List<File> decompress(File archive);
-
 }
