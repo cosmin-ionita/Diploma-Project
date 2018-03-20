@@ -1,4 +1,5 @@
 import Models.SolrDataModel;
+import Utils.Utils;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
@@ -17,6 +18,9 @@ public class ParseEngine {
      *
      * @param file - the file that it's analyzed
      */
+
+    private static final String parserTemplatePrefix = "parser_";
+
     private static void processFile(File file) {
 
         String line;
@@ -24,7 +28,7 @@ public class ParseEngine {
 
         Class templates = ParserTemplates.class;
 
-        try{
+        try {
 
             BufferedReader br = new BufferedReader(new FileReader(file));
 
@@ -37,12 +41,25 @@ public class ParseEngine {
 
                 for(Method template : templates.getMethods()) {
 
-                        model = (SolrDataModel)template.invoke(null, line);
+                    if(template.getName().startsWith(parserTemplatePrefix)) {
 
-                        if(Utils.checkModel(model))
-                                DataRepository.addModel(model);
+                        template.invoke(null, line, model);
+
+                        if(Utils.checkModel(model)) {
+                            DataRepository.addModel(model);
+                            break;
+                        }
+                        else {
+                            Logger.out("The model is not correct. Line = " + line);
+                        }
+                    }
                 }
             }
+
+            Utils.cleanup(file);
+
+            DataRepository.dispatchModels();
+
         } catch(IOException | InvocationTargetException | IllegalAccessException exception) {
             exception.printStackTrace();
         }
