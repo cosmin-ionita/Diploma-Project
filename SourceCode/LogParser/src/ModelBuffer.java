@@ -1,7 +1,7 @@
 import Models.SolrDataModel;
+import Utils.RandomString;
 import flexjson.JSONSerializer;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -15,25 +15,27 @@ import java.util.List;
  */
 public class DataRepository {
 
-    private static int models_per_file = 100;
+    private int models_per_file = 10000;
 
-    private static int file_count = 0;
-    private static String file_prefix = "generated_";
-    private static String destination_directory = "/Users/ioni/streaming_logs/generated/";
+    private String file_prefix = "generated_";
+    private String destination_directory = "";
 
-    private static List<SolrDataModel> models = new ArrayList<>();
+    private List<SolrDataModel> models;
 
-    private static void generateFile() {
+    public DataRepository() {
+        models = new ArrayList<>();
+    }
+
+    private void generateFile() {
 
         /* Take each model and write it in a file */
 
-        List<SolrDataModel> back_models = new ArrayList<>(models);
-
+        RandomString generator = new RandomString();
         JSONSerializer serializer = new JSONSerializer();
 
-        String serialized_models = serializer.serialize(back_models);
+        String serialized_models = serializer.serialize(new ArrayList(models));
 
-        String fileName = destination_directory + file_prefix + file_count++;
+        String fileName = destination_directory + file_prefix + generator.getRandomString();
 
         File file = new File(fileName);
 
@@ -45,24 +47,24 @@ public class DataRepository {
 
             outputStream.close();
 
-            Logger.out("File generated: " + fileName + " with " + back_models.size() + " models serialized.");
+            Logger.out("File generated: " + fileName + " with " + models.size() + " models serialized.");
 
         }catch (IOException exception) {
             exception.printStackTrace();
         }
     }
 
-    public static void addModel(SolrDataModel model) {
+    public void addModel(SolrDataModel model) {
         models.add(model);
 
         if(models.size() == models_per_file) {
             generateFile();
 
-            models = new ArrayList<>();
+            models.clear();
         }
     }
 
-    public static void setDestinationDirectory(String path) {
+    public void setDestinationDirectory(String path) {
         destination_directory = path;
     }
 
@@ -72,9 +74,9 @@ public class DataRepository {
      * It is called at the end of the parsing stage in order to flush the accumulated models (probably less
      * than models_per_file)
      */
-    public static void dispatchModels() {
+    public void dispatchModels() {
         generateFile();
 
-        models = new ArrayList<>();
+        models.clear();
     }
 }
