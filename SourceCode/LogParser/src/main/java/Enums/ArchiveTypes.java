@@ -3,5 +3,5 @@ package Enums;
 public enum ArchiveTypes {
     TAR,
     ZIP,
-    GZIP
+    TARGZ
 }
