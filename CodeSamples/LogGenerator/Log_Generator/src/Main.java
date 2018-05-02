@@ -2,6 +2,7 @@ import org.xeustechnologies.jtar.TarEntry;
 import org.xeustechnologies.jtar.TarOutputStream;
 
 import java.io.*;
+import java.sql.SQLOutput;
 
 /**
  *
@@ -12,11 +13,11 @@ import java.io.*;
 
 public class Main {
 
-    private static final int files_per_archive = 5;
+    private static final int files_per_archive = 10;
     private static final int file_size = 2000000;   /*  2.000.000 bytes == 2 MB  */
 
-    private static final String large_log_filename = "/Users/ioni/logs.txt";
-    private static final String working_directory = "/Users/ioni/streaming_logs/";
+    private static String large_log_filename = "/Users/ioni/logs.txt";
+    private static String working_directory = "/Users/ioni/streaming_logs/";
 
     private static String getFileName(int no) {
         return Main.working_directory + "log_" + no + ".txt";
@@ -58,6 +59,8 @@ public class Main {
 
         try {
 
+            Thread.sleep(3000);
+
             int count;
             byte data[] = new byte[2048];
 
@@ -86,7 +89,7 @@ public class Main {
 
             output_stream.close();
         }
-        catch(FileNotFoundException exception) {
+        catch(FileNotFoundException | InterruptedException exception) {
             exception.printStackTrace();
         }
         catch (IOException exception) {
@@ -113,6 +116,14 @@ public class Main {
 
         String line, file_name;
         int file_no = 0, bytes_written = 0, archive_id = 0;
+
+        while(args.length != 2 || !Utils.checkInput(args[0], args[1])) {
+            System.out.println("Usage: java -jar Log_Generator.jar --input-file=/path/to/input/file --destination-directory=/path/to/dest/dir");
+            return;
+        }
+
+        Main.large_log_filename = args[0].split("=")[1];
+        Main.working_directory = args[1].split("=")[1];
 
         try {
 
@@ -152,5 +163,7 @@ public class Main {
 
         generateArchive(archive_id, file_no);
         removeFiles();
+
+        Logger.out("Done!");
     }
 }
