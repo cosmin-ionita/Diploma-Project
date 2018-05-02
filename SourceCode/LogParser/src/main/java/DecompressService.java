@@ -1,5 +1,5 @@
 import Enums.ArchiveTypes;
-import Interfaces.IDecompressable;
+import Interfaces.Decompressable;
 import Utils.Utils;
 
 import java.io.File;
@@ -19,13 +19,12 @@ public class DecompressService {
      * @return - the list of files contained in the archive
      */
     public static List<File> decompressArchive(Path archivePath) {
-
         List<File> files;
         DecompressorFactory factory = new DecompressorFactory();
 
         String extension = Utils.getExtension(archivePath.toString());
 
-        IDecompressable decompressor = factory.getDecompressor(ArchiveTypes.valueOf(extension));
+        Decompressable decompressor = factory.getDecompressor(ArchiveTypes.valueOf(extension));
         assert decompressor != null;
 
         files = decompressor.decompress(archivePath.toFile());
