@@ -36,6 +36,7 @@ This repository contains my Bachelor's CS degree project as well as it's timelin
 ### Week 4 (12.03.2018 -> 16.03.2018)
 
 * :ballot_box_with_check: Analyze all keystone logs to see their format
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 * Create a jar that accumulates logs and compress them (simulates the real world scenario)
 * Research on a log parser (for log4j but not only)
@@ -43,6 +44,8 @@ This repository contains my Bachelor's CS degree project as well as it's timelin
 * Configure Flume to send data to HDFS
 * Analyze graphs and see how data flows
 =======
+=======
+>>>>>>> e9d1e632e96bedea2c89100236e37704b3123e2c
 * :ballot_box_with_check: Create a simulator that takes a large log file, splits it into multiple files and archives those files
 * :ballot_box_with_check: Create a parser that decompresses each archive and converts each log event into a structured JSON model
 
@@ -52,6 +55,7 @@ This repository contains my Bachelor's CS degree project as well as it's timelin
 * :ballot_box_with_check: Modify the parser to support high speed archive ingestion
 * :ballot_box_with_check: Add support for multiline logs (ex. stacktraces)
 * :ballot_box_with_check: Add parser functions that support only a subset of log formats (ongoing work)
+<<<<<<< HEAD
 
 ### Week 6 (26.03.2018 -> 30.03.2018)
 
@@ -98,3 +102,5 @@ This repository contains my Bachelor's CS degree project as well as it's timelin
 * :ballot_box_with_check: Created a set of config scripts that will prepare the newly created infrastructure
 * :ballot_box_with_check: Created the daemon that will run on HDFS machine and trigger the index job (IndexTrigger)
 >>>>>>> Stashed changes
+=======
+>>>>>>> e9d1e632e96bedea2c89100236e37704b3123e2c
