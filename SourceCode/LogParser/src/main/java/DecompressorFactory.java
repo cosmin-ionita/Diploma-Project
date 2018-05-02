@@ -1,8 +1,8 @@
-import Decompressors.GzipDecompressor;
 import Decompressors.TarDecompressor;
+import Decompressors.TarGzDecompressor;
 import Decompressors.ZipDecompressor;
 import Enums.ArchiveTypes;
-import Interfaces.IDecompressable;
+import Interfaces.Decompressable;
 
 /**
  * This class is a simple implementation of factory pattern for decompressors
@@ -15,7 +15,7 @@ public class DecompressorFactory {
      * @param archiveType - the type of the archive based on it's extension
      * @return - returns the specialized decompressor
      */
-    public IDecompressable getDecompressor(ArchiveTypes archiveType) {
+    public Decompressable getDecompressor(ArchiveTypes archiveType) {
 
         if(archiveType == ArchiveTypes.TAR)
             return new TarDecompressor();
@@ -23,8 +23,8 @@ public class DecompressorFactory {
         else if(archiveType == ArchiveTypes.ZIP)
             return new ZipDecompressor();
 
-        else if(archiveType == ArchiveTypes.GZIP)
-            return new GzipDecompressor();
+        else if(archiveType == ArchiveTypes.TARGZ)
+            return new TarGzDecompressor();
 
         return null;
     }

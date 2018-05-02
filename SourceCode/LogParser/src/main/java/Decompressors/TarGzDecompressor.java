@@ -1,6 +1,7 @@
 package Decompressors;
 
-import Interfaces.IDecompressable;
+import Interfaces.Decompressable;
+import Utils.Utils;
 import org.xeustechnologies.jtar.TarEntry;
 import org.xeustechnologies.jtar.TarInputStream;
 
@@ -9,10 +10,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import Utils.Utils;
+import java.util.zip.GZIPInputStream;
 
-
-public class TarDecompressor implements IDecompressable {
+public class TarGzDecompressor implements Decompressable {
 
     private static final int chunk_size = 2048;
     private static final String extractedDirectoryPrefix = "extracted_";
@@ -29,7 +29,6 @@ public class TarDecompressor implements IDecompressable {
     }
 
     public List<File> decompress(File archive) {
-
         int count;
 
         TarEntry entry;
@@ -41,24 +40,34 @@ public class TarDecompressor implements IDecompressable {
 
         try {
 
-            TarInputStream inputStream = new TarInputStream(new BufferedInputStream(new FileInputStream(archive)));
+            while (!Utils.isFileClosed(archive))
+                ;
+
+            FileInputStream stream = new FileInputStream(archive);
+
+            GZIPInputStream gzipInputStream = new GZIPInputStream(stream);
+
+            TarInputStream inputStream = new TarInputStream(new BufferedInputStream(gzipInputStream));
 
             while (( entry = inputStream.getNextEntry() ) != null) {
 
-                byte data[] = new byte[chunk_size];
+                if(!entry.isDirectory()) {
 
-                fileName = destDirectory + "/" + entry.getName();
+                    byte data[] = new byte[chunk_size];
 
-                FileOutputStream outputStream = new FileOutputStream(fileName);
-                BufferedOutputStream bufferedStream = new BufferedOutputStream(outputStream);
+                    fileName = destDirectory + "/" + entry.getName();
 
-                while (( count = inputStream.read( data ) ) != -1)
-                    bufferedStream.write(data, 0, count );
+                    FileOutputStream outputStream = new FileOutputStream(fileName);
+                    BufferedOutputStream bufferedStream = new BufferedOutputStream(outputStream);
 
-                extractedFiles.add(new File(fileName));
+                    while (( count = inputStream.read( data ) ) != -1)
+                        bufferedStream.write(data, 0, count );
 
-                bufferedStream.flush();
-                bufferedStream.close();
+                    extractedFiles.add(new File(fileName));
+
+                    bufferedStream.flush();
+                    bufferedStream.close();
+                }
             }
         } catch (IOException exception) {
             exception.printStackTrace();
