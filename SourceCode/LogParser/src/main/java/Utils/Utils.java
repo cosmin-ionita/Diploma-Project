@@ -1,5 +1,6 @@
 package Utils;
 
+import Enums.ArchiveTypes;
 import Models.SolrDataModel;
 
 import java.io.BufferedReader;
@@ -14,6 +15,14 @@ import java.util.*;
 public class Utils {
 
     private final static List<String> archiveTypes = new ArrayList<>();
+
+    static {
+        List<ArchiveTypes> enumValues = Arrays.asList(ArchiveTypes.values());
+
+        for(ArchiveTypes value : enumValues) {
+            archiveTypes.add(value.name());
+        }
+    }
 
     public static String getExtension(String fileName) {
         return fileName.substring(fileName.lastIndexOf(".") + 1).toUpperCase();
@@ -114,6 +123,10 @@ public class Utils {
 
     public static void updateSourceFileName(SolrDataModel model, File file) {
             model.setSourceFileName(file.getName());
+    }
+
+    public static void updateLineNumber(SolrDataModel model, int lineNumber) {
+        model.setLineNumber(Integer.toString(lineNumber));
     }
 
     public static boolean checkInput(String watchDirectory, String destinationDirectory) {
