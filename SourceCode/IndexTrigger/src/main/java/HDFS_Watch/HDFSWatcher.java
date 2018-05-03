@@ -14,7 +14,7 @@ import java.util.List;
 
 public class HDFSWatcher {
 
-    private static final int indexFilesCount = 100;
+    private static final int indexFilesCount = 10;
 
     public static void main( String[] args ) throws IOException, InterruptedException, MissingEventsException
     {
