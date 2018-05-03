@@ -44,7 +44,7 @@ public class ModelBuffer {
 
             Logger.out("File generated: " + file.getName() + " with " + models.size() + " models serialized.");
 
-        }catch (IOException exception) {
+        } catch (IOException exception) {
             exception.printStackTrace();
         }
     }
