@@ -43,5 +43,7 @@ public class SolrAPI {
         for(SolrDocument document : documents) {
 
         }
+
+        return null;
     }
 }
