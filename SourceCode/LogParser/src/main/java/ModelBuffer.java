@@ -33,7 +33,7 @@ public class ModelBuffer {
             FileOutputStream outputStream = new FileOutputStream(file);
 
             List<String> excludedFields = new ArrayList<>();
-            excludedFields.add("class");
+            excludedFields.add("class");    /* We exclude this because it's added by the deserializer */
 
             serializer.setExcludes(excludedFields);
 
