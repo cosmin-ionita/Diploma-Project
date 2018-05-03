@@ -11,4 +11,4 @@ sudo hadoop 															\
 	--verbose														\
 	--zk-host va6-ioni-ksmaster-1:2181/solr											\
 	--collection $SOLR_CORE													\
-	--input-list /home/ec2-user/workdir/input.txt										\
+	--input-list /home/ec2-user/workdir/input_files.txt									\
