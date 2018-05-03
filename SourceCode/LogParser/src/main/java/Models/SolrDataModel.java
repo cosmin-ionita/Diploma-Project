@@ -9,6 +9,7 @@ public class SolrDataModel {
     private String hostName;
     private String jobId;
     private String sourceFileName;
+    private String lineNumber;
 
     public void setDate(String date) {
         this.date = date;
@@ -38,6 +39,8 @@ public class SolrDataModel {
         this.sourceFileName = sourceFileName;
     }
 
+    public void setLineNumber(String lineNumber) { this.lineNumber = lineNumber; }
+
     public String getDate() {
         return this.date;
     }
@@ -65,4 +68,6 @@ public class SolrDataModel {
     public String getSourceFileName() {
         return this.sourceFileName;
     }
+
+    public String getLineNumber() { return this.lineNumber; }
 }
