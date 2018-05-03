@@ -2,8 +2,6 @@ package Decompressors;
 
 import Interfaces.Decompressable;
 import Utils.Utils;
-import org.xeustechnologies.jtar.TarEntry;
-import org.xeustechnologies.jtar.TarInputStream;
 
 import java.io.*;
 import java.nio.file.Path;
