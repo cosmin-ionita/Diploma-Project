@@ -13,7 +13,7 @@ public class ParseEngine {
 
     private static String destinationDirectory = "";
 
-    private static void processLogEvent(String line, File file, ModelBuffer buffer) throws GrokException{
+    private static void processLogEvent(String line, int lineNumber, File file, ModelBuffer buffer) throws GrokException{
 
         SolrDataModel model = new SolrDataModel();
 
@@ -22,6 +22,7 @@ public class ParseEngine {
         if(model != null) {
             Utils.updateHostname(model);
             Utils.updateSourceFileName(model, file);
+            Utils.updateLineNumber(model, lineNumber);
 
             buffer.addModel(model);
         } else {
@@ -30,6 +31,8 @@ public class ParseEngine {
     }
 
     private static void processFile(File file) {
+        int currentLineNumber = 1, eventLineNumber = 0;
+
         String line, completeLine = "";
 
         ModelBuffer buffer = new ModelBuffer();
@@ -41,19 +44,23 @@ public class ParseEngine {
 
             while ((line = reader.readLine()) != null) {
 
-                if (GrokEngine.startsWithDateTime(line)) {  /* i.e. we found a new log line */
+                if (GrokEngine.startsWithDateTime(line)) {  /* we found a new log line */
 
                     if (!completeLine.isEmpty())
-                        processLogEvent(completeLine, file, buffer);
+                        processLogEvent(completeLine, eventLineNumber, file, buffer);
+
+                    eventLineNumber = currentLineNumber;
 
                     completeLine = line;
                 }
                 else
                     completeLine += line;
+
+                currentLineNumber++;
             }
 
             if(!completeLine.isEmpty())
-                processLogEvent(completeLine, file, buffer);
+                processLogEvent(completeLine, eventLineNumber, file, buffer);
 
             Utils.cleanup(file);
 
