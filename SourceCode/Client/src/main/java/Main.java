@@ -1,3 +1,4 @@
+import Gui.GuiMgr;
 import Utils.StringsMapping;
 
 public class Main {
@@ -7,8 +8,14 @@ public class Main {
     }
 
     private static void showGui() {
-        GuiManager manager = new GuiManager();
-        manager.launchGui();
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                javafx.application.Application.launch(GuiMgr.class);
+            }
+        });
+
+        t.start();
     }
 
     public static void main(String args[]) {
