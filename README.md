@@ -90,3 +90,8 @@ This repository contains my Bachelor's CS degree project as well as it's timelin
 
 * :ballot_box_with_check: Created a set of config scripts that will prepare the newly created infrastructure
 * :ballot_box_with_check: Created the daemon that will run on HDFS machine and trigger the index job (IndexTrigger)
+* :ballot_box_with_check: Started building of a Desktop app UI using Java Swing
+
+### Week 12 (07.05.2018 -> 11.05.2018)
+
+* :ballot_box_with_check: Replaced Swing UI with a Java FX one (because it's more flexible)
