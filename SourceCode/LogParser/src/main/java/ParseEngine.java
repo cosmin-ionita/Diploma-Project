@@ -13,7 +13,7 @@ public class ParseEngine {
 
     private static String destinationDirectory = "";
 
-    private static void processLogEvent(String line, int lineNumber, File file, ModelBuffer buffer) throws GrokException{
+    private static void processLogEvent(String line, int lineNumber, File file, ModelBuffer buffer) throws GrokException {
 
         SolrDataModel model = new SolrDataModel();
 
