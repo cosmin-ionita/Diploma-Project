@@ -95,3 +95,6 @@ This repository contains my Bachelor's CS degree project as well as it's timelin
 ### Week 12 (07.05.2018 -> 11.05.2018)
 
 * :ballot_box_with_check: Replaced Swing UI with a Java FX one (because it's more flexible)
+* :ballot_box_with_check: Tried to fix the QE cluster with Dragos C. and Vlad C.
+* :ballot_box_with_check: Built the presentation for Scientific Communication Session 2018
+* :ballot_box_with_check: Built a document with the initial work on this project
