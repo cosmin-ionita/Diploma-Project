@@ -1,29 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="618.0" prefWidth="933.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Gui.GuiMgr">
    <children>
-      <Button layoutX="372.0" layoutY="545.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="156.0" text="Search" />
-      <TextArea layoutX="372.0" layoutY="16.0" prefHeight="501.0" prefWidth="547.0" text="Here will be the search results" />
-      <ScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="16.0" prefHeight="258.0" prefWidth="345.0">
+      <Button layoutX="372.0" layoutY="545.0" mnemonicParsing="false" onAction="#searchClick" prefHeight="43.0" prefWidth="156.0" text="Search" />
+      <TextArea layoutX="378.0" layoutY="17.0" prefHeight="501.0" prefWidth="547.0" text="Here will be the search results" />
+      <Button layoutX="207.0" layoutY="267.0" mnemonicParsing="false" onAction="#newFieldClick" prefHeight="34.0" prefWidth="111.0" text="New Field" />
+      <Button layoutX="763.0" layoutY="545.0" mnemonicParsing="false" onAction="#exportResultsClick" prefHeight="43.0" prefWidth="156.0" text="Export Results" />
+      <Button layoutX="14.0" layoutY="545.0" mnemonicParsing="false" onAction="#exitButtonClick" prefHeight="43.0" prefWidth="156.0" text="Exit" />
+      <AmbientLight color="CHARTREUSE" lightOn="true" />
+      <Button layoutX="72.0" layoutY="267.0" mnemonicParsing="false" onAction="#deleteFieldClick" prefHeight="34.0" prefWidth="111.0" text="Delete Field" />
+      <TitledPane animated="false" layoutX="13.0" layoutY="17.0" text="Fields">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="214.0" prefWidth="344.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="215.0" prefWidth="355.0">
                <children>
-                  <Label layoutX="10.0" layoutY="14.0" text="Field Name" />
-                  <Label layoutX="179.0" layoutY="14.0" text="Field Value" />
-                  <ChoiceBox layoutX="9.0" layoutY="31.0" prefHeight="27.0" prefWidth="140.0" />
-                  <TextField layoutX="179.0" layoutY="31.0" prefHeight="27.0" prefWidth="156.0" />
+                  <ScrollPane fx:id="fieldsScrollPane" hbarPolicy="NEVER" prefHeight="215.0" prefWidth="355.0" style="-fx-background-color: #transparent;" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="-10.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="206.0">
+                           <children>
+                              <VBox fx:id="fieldsContainer" layoutX="-2.0" prefHeight="212.0" prefWidth="355.0">
+                                 <children>
+                                    <Pane fx:id="fieldPane" prefHeight="84.0" prefWidth="332.0">
+                                       <children>
+                                          <Label layoutX="15.0" layoutY="14.0" text="Field Name" />
+                                          <ChoiceBox layoutX="14.0" layoutY="31.0" prefHeight="27.0" prefWidth="140.0" />
+                                          <Label layoutX="173.0" layoutY="14.0" text="Field Value" />
+                                          <TextField layoutX="173.0" layoutY="31.0" prefHeight="27.0" prefWidth="156.0" />
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
                </children>
             </AnchorPane>
         </content>
-      </ScrollPane>
-      <Button layoutX="248.0" layoutY="281.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="111.0" text="New Field" />
-      <Button layoutX="763.0" layoutY="545.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="156.0" text="Export Results" />
-      <Button layoutX="14.0" layoutY="545.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="156.0" text="Exit" />
-      <Pane layoutX="14.0" layoutY="317.0" prefHeight="200.0" prefWidth="345.0" />
+      </TitledPane>
+      <TitledPane animated="false" layoutX="14.0" layoutY="312.0" prefHeight="205.0" prefWidth="355.0" text="Other options" />
    </children>
 </Pane>
