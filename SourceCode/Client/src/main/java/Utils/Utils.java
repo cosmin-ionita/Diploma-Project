@@ -1,6 +1,8 @@
 package Utils;
 
 import Gui.GuiMgr;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
 
 public class Utils {
 
@@ -15,19 +17,73 @@ public class Utils {
         t.start();
     }
 
-    public static void printHelp() {
-        System.out.println(StringsMapping.help);
-    }
+    public static Options buildOptions() {
+        Options options = new Options();
 
-    public static boolean isQuery(String[] args) {
-        return args[0].equals(StringsMapping.queryShort) || args[0].equals(StringsMapping.queryLong) && args.length > 2;
-    }
+        Option queryOption = Option.builder(StringsMapping.queryShort)
+                .required(true)
+                .hasArg(true)
+                .hasArgs()
+                .longOpt(StringsMapping.queryLong)
+                .desc(StringsMapping.queryDescription)
+                .build();
 
-    public static boolean isCommand(String[] args) {
-        return args[0].equals(StringsMapping.commandShort)  || args[0].equals(StringsMapping.commandLong) && args.length > 2;
-    }
+        Option timeOption = Option.builder(StringsMapping.timeIntervalShort)
+                .required(false)
+                .hasArg(true)
+                .numberOfArgs(2)
+                .longOpt(StringsMapping.timeIntervalLong)
+                .desc(StringsMapping.timeIntervalDescription)
+                .build();
 
-    public static boolean isGUI(String[] args) {
-        return args[0].equals(StringsMapping.gui);
+        Option dateOption = Option.builder(StringsMapping.dateIntervalShort)
+                .required(false)
+                .hasArg(true)
+                .numberOfArgs(2)
+                .longOpt(StringsMapping.dateIntervalLong)
+                .desc(StringsMapping.dateIntervalDescription)
+                .build();
+
+        Option orderByDate = Option.builder(StringsMapping.orderByDateShort)
+                .required(false)
+                .hasArg(true)
+                .numberOfArgs(1)
+                .longOpt(StringsMapping.orderByDateLong)
+                .desc(StringsMapping.orderByDateDescription)
+                .build();
+
+        Option orderByTime = Option.builder(StringsMapping.orderByTimeShort)
+                .required(false)
+                .hasArg(true)
+                .numberOfArgs(1)
+                .longOpt(StringsMapping.orderByTimeLong)
+                .desc(StringsMapping.orderByTimeDescription)
+                .build();
+
+        Option export = Option.builder(StringsMapping.exportShort)
+                .required(false)
+                .hasArg(true)
+                .numberOfArgs(1)
+                .longOpt(StringsMapping.exportLong)
+                .desc(StringsMapping.exportDescription)
+                .build();
+
+        Option gui = Option.builder(StringsMapping.guiShort)
+                .required(false)
+                .hasArg(false)
+                .numberOfArgs(0)
+                .longOpt(StringsMapping.guiLong)
+                .desc(StringsMapping.guiDescription)
+                .build();
+
+        options.addOption(queryOption);
+        options.addOption(timeOption);
+        options.addOption(dateOption);
+        options.addOption(orderByDate);
+        options.addOption(orderByTime);
+        options.addOption(export);
+        options.addOption(gui);
+
+        return options;
     }
 }
