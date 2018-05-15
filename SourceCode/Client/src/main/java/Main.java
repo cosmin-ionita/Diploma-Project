@@ -1,10 +1,7 @@
-import Executors.CommandExecutor;
-import Executors.QueryExecutor;
-import Managers.CommandManager;
-import Managers.QueryManager;
-import Models.Command;
-import Models.Query;
+import Utils.StringsMapping;
 import Utils.Utils;
+import org.apache.commons.cli.*;
+import org.apache.commons.cli.ParseException;
 
 /**
  *
@@ -22,32 +19,48 @@ import Utils.Utils;
  *                      [--order-by-time asc/desc]
  *                      [--export file.txt]
  *
+ *  user@host:$> loGrep [-c status]
+ *                      [-c --index-interval 1h]
+ *                      [-c --data-retention-policy delete]
+ *
+ *
+ *
  */
 
 public class Main {
 
+    private static void printHelper(Options options) {
+        HelpFormatter formatter = new HelpFormatter();
+
+        formatter.setWidth(500);
+        formatter.printHelp( "loGrep", options );
+    }
 
     public static void main(String args[]) {
+        Options options = Utils.buildOptions();
 
-        if(Utils.isQuery(args)) {
-            QueryManager manager = QueryManager.getInstance();
+        CommandLineParser parser = new DefaultParser();
 
-            Query query = manager.buildQuery(args);
+        try {
+            CommandLine line = parser.parse(options, args);
 
-            QueryExecutor.executeQuery(query);
+            if(line.hasOption(StringsMapping.queryShort)) {
 
+            }
+
+            if(line.hasOption(StringsMapping.dateIntervalShort)) {
+
+            }
+
+            if(line.hasOption(StringsMapping.timeIntervalShort)) {
+
+            }
+
+
+            printHelper(options);
         }
-        else if(Utils.isCommand(args)) {
-            CommandManager manager = CommandManager.getInstance();
-
-            Command command = manager.buildCommand(args);
-
-            CommandExecutor.executeCommand(command);
-
-        } else if(Utils.isGUI(args)) {
-            Utils.showGUI();
-        } else {
-            Utils.printHelp();
+        catch( ParseException exp ) {
+            System.err.println("Parsing failed. Reason: " + exp.getMessage());
         }
     }
 }
