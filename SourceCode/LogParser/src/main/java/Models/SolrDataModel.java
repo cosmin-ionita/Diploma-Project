@@ -2,21 +2,23 @@ package Models;
 
 public class SolrDataModel {
 
-    private String date;
-    private String time;
+    private String timeStamp;
     private String logLevel;
     private String message;
-    private String hostName;
     private String jobId;
     private String sourceFileName;
     private String lineNumber;
 
-    public void setDate(String date) {
-        this.date = date;
+    public SolrDataModel() {}
+
+    public SolrDataModel(String timeStamp, String loglevel, String message) {
+        this.timeStamp = timeStamp;
+        this.logLevel = loglevel;
+        this.message = message;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setTimeStamp(String date) {
+        this.timeStamp = date;
     }
 
     public void setLogLevel(String logLevel) {
@@ -25,10 +27,6 @@ public class SolrDataModel {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public void setHostName(String hostName) {
-        this.hostName = hostName;
     }
 
     public void setJobId(String jobId) {
@@ -41,12 +39,8 @@ public class SolrDataModel {
 
     public void setLineNumber(String lineNumber) { this.lineNumber = lineNumber; }
 
-    public String getDate() {
-        return this.date;
-    }
-
-    public String getTime() {
-        return this.time;
+    public String getTimeStamp() {
+        return this.timeStamp;
     }
 
     public String getLogLevel() {
@@ -55,10 +49,6 @@ public class SolrDataModel {
 
     public String getMessage() {
         return this.message;
-    }
-
-    public String getHostName() {
-        return this.hostName;
     }
 
     public String getJobId() {
