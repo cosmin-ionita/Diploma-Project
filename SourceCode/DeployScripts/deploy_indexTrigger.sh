@@ -2,25 +2,12 @@
 
 # This script deploys the log generator jar file to the cluster
 
-CLIENT_PATH=../IndexTrigger/out/artifacts/IndexTrigger_jar/IndexTrigger.jar
+CLIENT_PATH=../HadoopDriver/out/artifacts/HadoopDriver_jar/HadoopDriver.jar
+#CLIENT_PATH=../HadoopDriver/target/HadoopDriver-1.0-SNAPSHOT.jar
 
-CLIENT_CONFIGS_PATH=../IndexTrigger/configs/
-CLUSTER_CONFIG=../../../../cns/clusters/kscluster-ioni.yaml
-REMOTE_PATH=/home/ec2-user/binaries/
-NODE_NAME=va6-ioni-ksmaster-1
-
-if [ "$#" -ne 1 ]; then
-	echo " === Deploying only the client jar ==="
-else
-	if [ "$1" = "include_configs" ]; then
-
-		echo "=== Deploy client configuration in progress... ==="
-
-        	ops $CLUSTER_CONFIG sync $CLIENT_CONFIGS_PATH $NODE_NAME:$REMOTE_PATH -l ec2-user
-
-	        echo "=== Client configuration deployment done! ==="
-	fi
-fi
+CLUSTER_CONFIG=../../../../cns/clusters/kscluster-ioni-qe-1.yaml
+REMOTE_PATH=/home/ec2-user/
+NODE_NAME=va6-ioni-qe-1-ksmaster-1
 
 echo "=== Deploy client in progress... ==="
 
