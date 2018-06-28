@@ -1,86 +1,104 @@
-import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
-import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
-
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.*;
-import java.nio.file.WatchEvent.Kind;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-import Utils.Utils;
+import ParseEngine.*;
+
+import Models.S3Model;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.amazonaws.services.sqs.AmazonSQS;
+import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
+import com.amazonaws.services.sqs.model.Message;
+import flexjson.JSONDeserializer;
 
 public class WatchEngine {
 
-    private static String watchDirectory = "";
     private static String destinationDirectory = "";
 
-    private static void assertFolderPath(Path path) {
-        try {
-            Boolean isFolder = (Boolean) Files.getAttribute(path,"basic:isDirectory", NOFOLLOW_LINKS);
+    private static String queueName = "ioni-sqs-demo";
 
-            if (!isFolder)
-                throw new IllegalArgumentException("Path: " + path + " is not a folder");
+    private static ExecutorService executor = Executors.newFixedThreadPool(16);
 
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
-    }
+    private static String workDirPath = "/home/ec2-user/workDir/binaries/parserWorkDir/";
 
-    private static void processEvent(WatchEvent<?> watchEvent) {
-        Kind<?> kind = watchEvent.kind();
+    private static void processMessage(Message message) throws IOException {
 
-        if (kind == ENTRY_CREATE) {          /* If a new entry is added to the directory (it can be a directory) */
-            Path created_entity = ((WatchEvent<Path>) watchEvent).context();
+        AmazonS3 client = AmazonS3ClientBuilder.defaultClient();
 
-            if(Utils.isArchive(created_entity.toString())) {
-                Logger.out("Processing the archive: " + created_entity.toString());
+        JSONDeserializer deserializer = new JSONDeserializer().use(null, S3Model.class);
 
-                ParseEngine.ParseArchive(Paths.get(watchDirectory).resolve(created_entity), destinationDirectory);
-            }
-        }
-    }
+        S3Model deserializedModel = (S3Model)deserializer.deserialize(message.getBody(), S3Model.class);
 
-    private static void watchDirectory(Path path) {
-        WatchKey key;
+        executor.submit(() -> {
+            try {
 
-        assertFolderPath(path);
+                int count;
+                byte data[] = new byte[2048];
 
-        FileSystem fs = path.getFileSystem();
+                String key = deserializedModel.Records.get(0).s3.object.key;
+                String bucketName = deserializedModel.Records.get(0).s3.bucket.name;
 
-        try (WatchService service = fs.newWatchService()) {
+                System.out.println("Key = " + key);
+                System.out.println("Bucket Name = " + bucketName);
 
-            path.register(service, ENTRY_CREATE);
+                S3Object fullObject = client.getObject(bucketName, key);
 
-            while (true) {
+                S3ObjectInputStream stream = fullObject.getObjectContent();
 
-                Logger.out("Ready to watch on new archives...");
+                String archiveName = workDirPath + key;
 
-                /* This call blocks the current thread until an event occurs */
-                key = service.take();
+                System.out.println("Processing archive: " + archiveName);
 
-                Logger.out("New file detected! Start processing the archive...");
+                FileOutputStream outputStream = new FileOutputStream(archiveName);
 
-                /* Iterate over the events and process each one */
-                for (WatchEvent<?> watchEvent : key.pollEvents()) {
-                    processEvent(watchEvent);
+                while ((count = stream.read(data)) != -1) {
+                    outputStream.write(data, 0, count);
                 }
 
-                if (!key.reset())
-                    break;
+                outputStream.close();
+                stream.close();
+
+                Path archivePath = new File(archiveName).toPath();
+
+                ParseEngine.parseArchive(archivePath, destinationDirectory);
+
+            }catch (IOException exception) {
+                exception.printStackTrace();
             }
-        } catch (IOException | InterruptedException exception) {
-            exception.printStackTrace();
-        }
+        });
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
-        if(args.length != 2 || !Utils.checkInput(args[0], args[1])) {
+        /* TODO Fix this */
+
+        /*if(args.length != 2 || !Utils.checkInput(args[0], args[1])) {
             Logger.out("Usage: java -jar Diploma-Project.jar --watch-directory=/path/to/in/dir --destination-directory=/path/to/out/dir");
             return;
+        }*/
+
+        WatchEngine.destinationDirectory = args[0].split("=")[1];
+
+        //WatchEngine.destinationDirectory = args[1].split("=")[1];
+
+        AmazonSQS sqs = AmazonSQSClientBuilder.defaultClient();
+
+        while(true) {
+
+            List<Message> messages = sqs.receiveMessage(queueName).getMessages();
+
+            for(Message message : messages) {
+                processMessage(message);
+            }
+
+            for(Message message : messages) {
+                sqs.deleteMessage(queueName, message.getReceiptHandle());
+            }
         }
-
-        WatchEngine.watchDirectory = args[0].split("=")[1];
-        WatchEngine.destinationDirectory = args[1].split("=")[1];
-
-        watchDirectory(Paths.get(WatchEngine.watchDirectory));
     }
 }
