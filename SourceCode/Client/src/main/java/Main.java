@@ -30,6 +30,7 @@ import java.util.List;
  *                      [-e file.txt]
  *                      [-f]
  *                      [-in]
+
  *
  *  user@host:$> loGrep [--query field1=value1 field2=value2 field3=value3]
  *                      [--time-interval time1 time2]

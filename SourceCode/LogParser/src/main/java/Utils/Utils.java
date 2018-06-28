@@ -104,8 +104,7 @@ public class Utils {
                 model.getLogLevel()       != null &&
                 model.getMessage()        != null)
                 //model.getSourceFileName() != null &&
-
-            return true;
+           return true;
 
         return false;
     }

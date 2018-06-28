@@ -29,6 +29,7 @@ public class SolrAPI {
     private static String cursorInternal;
     private static SolrQuery queryInternal;
 
+
     static {
         createSolrClient();
     }

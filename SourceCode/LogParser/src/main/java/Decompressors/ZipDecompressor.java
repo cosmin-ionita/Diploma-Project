@@ -64,7 +64,6 @@ public class ZipDecompressor implements Decompressable {
                 bufferedStream.flush();
                 bufferedStream.close();
             }
-
             inputStream.close();
             stream.close();
 
