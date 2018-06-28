@@ -1,3 +1,5 @@
+package ModelBuffer;
+
 import Models.SolrDataModel;
 import Utils.RandomString;
 import flexjson.JSONSerializer;
@@ -42,7 +44,11 @@ public class ModelBuffer {
             outputStream.write(serialized_models.getBytes());
             outputStream.close();
 
-            Logger.out("File generated: " + file.getName() + " with " + models.size() + " models serialized.");
+            String filename = file.getAbsolutePath();
+
+            boolean renameResult = file.renameTo(new File(filename.replace(".tmp", "")));
+
+            //Logger.out("File generated: " + file.getName() + " with " + models.size() + " models serialized.");
 
         } catch (IOException exception) {
             exception.printStackTrace();
@@ -50,13 +56,16 @@ public class ModelBuffer {
     }
 
     private void generateFile() {
-        RandomString generator = new RandomString();
 
-        String fileName = destination_directory + file_prefix + generator.getRandomString();
+        if(models.size() > 0) {
+            RandomString generator = new RandomString();
 
-        File file = new File(fileName);
+            String fileName = destination_directory + file_prefix + generator.getRandomString() + ".tmp";
 
-        writeSerializedModels(file);
+            File file = new File(fileName);
+
+            writeSerializedModels(file);
+        }
     }
 
     public void addModel(SolrDataModel model) {

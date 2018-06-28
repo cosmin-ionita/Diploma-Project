@@ -1,10 +1,17 @@
+package ParseEngine;
+
+import Grok.GrokEngine;
 import Models.SolrDataModel;
 import Utils.Utils;
-import io.thekraken.grok.api.exception.GrokException;
+import io.krakens.grok.api.exception.GrokException;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+
+import DecompressService.*;
+import ModelBuffer.*;
 
 /**
  * This class acts as a controller for processing the log files and transforming each log into a structured format
@@ -15,18 +22,17 @@ public class ParseEngine {
 
     private static void processLogEvent(String line, int lineNumber, File file, ModelBuffer buffer) throws GrokException {
 
-        SolrDataModel model = new SolrDataModel();
+        SolrDataModel model;
 
-        model = GrokEngine.parseLog(line, model);
+        model = GrokEngine.parseLog(line);
 
         if(model != null) {
-            Utils.updateHostname(model);
             Utils.updateSourceFileName(model, file);
             Utils.updateLineNumber(model, lineNumber);
 
             buffer.addModel(model);
         } else {
-            Logger.out("The model is not correct. Line = " + line);
+            //Logger.out("The model is not correct. Line = " + line);
         }
     }
 
@@ -79,16 +85,31 @@ public class ParseEngine {
      *
      * @param archivePath - the path to the archive
      */
-    public static void ParseArchive(Path archivePath, String destinationDirectory) {
+    public static void parseArchive(Path archivePath, String destinationDirectory) {
+
+        final Path archive = archivePath;
 
         ParseEngine.destinationDirectory = destinationDirectory;
 
-        Thread thread = new Thread(() -> {
+        Thread thread = new Thread(new Runnable() {
 
-            List<File> files = DecompressService.decompressArchive(archivePath);
+            @Override
+            public void run() {
+                List<File> files = DecompressService.decompressArchive(archive);
 
-            for(File file : files) {
-                processFile(file);
+                for(File file : files) {
+                    processFile(file);
+                }
+
+                try {
+
+                    Files.delete(archivePath);
+
+                    System.out.println("The archive " + archivePath.toString() + " was completely processed!");
+
+                }catch (IOException exception) {
+                    exception.printStackTrace();
+                }
             }
         });
 

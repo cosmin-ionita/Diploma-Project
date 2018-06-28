@@ -1,3 +1,5 @@
+package DecompressService;
+
 import Decompressors.TarDecompressor;
 import Decompressors.TarGzDecompressor;
 import Decompressors.ZipDecompressor;
