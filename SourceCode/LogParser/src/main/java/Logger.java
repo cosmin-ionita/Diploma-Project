@@ -4,7 +4,6 @@ public class Logger {
 
     private static File file = new File("/Users/ioni/log_output.txt");
 
-
     public static void out(String message) {
         System.out.println(message);
 
