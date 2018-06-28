@@ -24,16 +24,8 @@ sudo chmod 770 /home/ec2-user
 sudo chmod 775 ./workDir
 sudo chmod 775 ./workDir/launchDirectory
 
-# Copy the run and clean scripts (neccessary for development stage)
+sudo chown -R ec2-user:ec2-user ./workDir
 
-RUN_SCRIPT=./ConfigFiles/run.sh
-CLEAN_SCRIPT=./ConfigFiles/clean.sh
-
-CLUSTER_CONFIG=../../../../cns/clusters/kscluster-ioni.yaml
-REMOTE_PATH=/home/ec2-user/workDir/binaries/
-NODE_NAME=va6-ioni-ksmaster-3
-
-ops $CLUSTER_CONFIG sync $RUN_SCRIPT $NODE_NAME:$REMOTE_PATH -l ec2-user
-ops $CLUSTER_CONFIG sync $CLEAN_SCRIPT $NODE_NAME:$REMOTE_PATH -l ec2-user
+mv run.sh clean.sh ./workDir/binaries/
 
 echo "Config done!"
