@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane fx:id="fieldPane1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="341.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="14.0" layoutY="10.0" text="Field Name" />
+      <ChoiceBox layoutX="13.0" layoutY="27.0" prefHeight="27.0" prefWidth="140.0" />
+      <Label layoutX="172.0" layoutY="10.0" text="Field Value" />
+      <TextField layoutX="172.0" layoutY="27.0" prefHeight="27.0" prefWidth="156.0" />
+   </children>
+</Pane>
