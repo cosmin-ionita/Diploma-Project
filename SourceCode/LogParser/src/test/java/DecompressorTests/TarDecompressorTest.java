@@ -115,7 +115,7 @@ public class TarDecompressorTest {
      * @throws Exception
      */
     @AfterAll
-    public void cleanTest() throws IOException{
+    private void cleanTest() throws IOException{
         File archive = new File(getArchiveName());
         File outputDirectory = new File(destinationFilesDirectory + "extracted_archive");
 
