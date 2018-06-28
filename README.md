@@ -98,3 +98,54 @@ This repository contains my Bachelor's CS degree project as well as it's timelin
 * :ballot_box_with_check: Tried to fix the QE cluster with Dragos C. and Vlad C.
 * :ballot_box_with_check: Built the presentation for Scientific Communication Session 2018
 * :ballot_box_with_check: Built a document with the initial work on this project
+
+### Week 12 (14.05.2018 -> 18.05.2018)
+
+* :ballot_box_with_check: Added CommonsCLI support in the Client project
+* :ballot_box_with_check: Added a custom control in the desktop UI for the search fields
+* :ballot_box_with_check: Developed the SolrAPI class on the client
+* :ballot_box_with_check: Created custom classes for each command
+
+### Week 13 (21.05.2018 -> 25.05.2018)
+
+* :ballot_box_with_check: Created the SpringBoot REST API on HadoopDriver project (index trigger)
+* :ballot_box_with_check: Fixed some packet collisions that were leading to a corrupt fat JAR
+* :ballot_box_with_check: Developed a HadoopRestAPI Client on the client project
+* :ballot_box_with_check: Tested the API to make sure that index-now and index-interval commands work as expected
+
+### Week 14 (28.05.2018 -> 01.06.2018)
+
+* :ballot_box_with_check: Created a command executor model on the client
+* :ballot_box_with_check: Developed the export command in both CLI and GUI
+* :ballot_box_with_check: Implemented a merge logic between the time-interval and date-interval commands
+* :ballot_box_with_check: Started to work on the official documentation
+
+### Week 15 (04.05.2018 -> 08.06.2018)
+
+* :ballot_box_with_check: Added S3 download functionality on parser
+* :ballot_box_with_check: Added SQS receive logic on parser
+* :ballot_box_with_check: Implemented the processing logic for each archive using an ExecutorService
+* :ballot_box_with_check: Created a test S3 bucket and tested the developed workflow
+* :ballot_box_with_check: Created a DataGenerator multithreaded project that generates archives and loads them in S3
+
+### Week 16 (11.05.2018 -> 15.06.2018)
+
+* :ballot_box_with_check: Finalized the client side and tested it manually
+* :ballot_box_with_check: Implemented the Job Scheduler on the Hadoop Driver (using a timer controllable by the client)
+* :ballot_box_with_check: Developed a logic to detect when the indexing job is finished
+* :ballot_box_with_check: Diagnosed a log4j deadlock (Call Appenders) caused by a missing log4j.properties file
+* :ballot_box_with_check: Accelerated the work on the documentation
+* :ballot_box_with_check: Worked on the presentation for the KeyStone team
+
+### Week 18 (18.05.2018 -> 22.06.2018)
+
+* :ballot_box_with_check: Presented the project to the keystone team
+* :ballot_box_with_check: Worked on the documentation
+* :ballot_box_with_check: Loaded 34.7 GB of data into the system and tested the entire data flow
+* :ballot_box_with_check: Worked on the Faculty formalities regarding the diploma exam
+
+### Week 19 (25.05.2018 -> 29.06.2018)
+
+* :ballot_box_with_check: Finalized and delivered the documentation
+* :ballot_box_with_check: Loaded 120 GB of data and tested the entire workflow
+* :ballot_box_with_check: Created the official presentation for the next week
