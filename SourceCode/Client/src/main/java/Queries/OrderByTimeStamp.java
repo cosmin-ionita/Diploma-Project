@@ -4,7 +4,7 @@ import Exceptions.IncorrectParameterException;
 import Interfaces.Query;
 import org.apache.solr.client.solrj.SolrQuery;
 
-public class OrderByDate implements Query {
+public class OrderByTimeStamp implements Query {
 
     private String[] params;
     private final String ascendantSort = "ASC", descendantSort = "DESC";
