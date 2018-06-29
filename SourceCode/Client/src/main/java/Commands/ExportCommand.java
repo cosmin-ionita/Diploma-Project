@@ -16,7 +16,6 @@ public class ExportCommand implements Command {
 
     public void execute() {
         ExportStatus.fileName = params[0];
-        //ExportStatus.format =
 
         ExportStatus.outputMode = OutputMode.FILE;
     }
