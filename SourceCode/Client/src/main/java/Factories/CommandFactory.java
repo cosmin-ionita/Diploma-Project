@@ -20,7 +20,7 @@ public class CommandFactory {
             return new TimeInterval();
 
         } else if(name.equals(StringsMapping.orderByTimeStampShort)) {
-            return new OrderByDate();
+            return new OrderByTimeStamp();
         }
 
         return null;
